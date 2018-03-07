@@ -1,0 +1,195 @@
+﻿@using SmartPOS.Entity.EntityModels
+@using SmartPOS.App.Models
+@model SmartPOS.App.Models.ProductVm
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_Master.cshtml";
+    List<Product> products = ViewBag.Product;
+}
+
+<h2>Product</h2>
+
+<div class="card">
+    <div class="card-block">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-material" }))
+        {
+            @Html.AntiForgeryToken()
+            @*<h4>Enter Currency Info</h4>*@
+            <hr />
+            @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.MaterialTypeId, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    
+                    @Html.DropDownListFor(q => q.MaterialTypeId, new SelectList(ViewBag.MaterialType, "Value", "Text"), new {@class = "form-control form-control-line"})
+                    @Html.ValidationMessageFor(m=> m.MaterialTypeId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.BrandId, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    
+                    @Html.DropDownListFor(q => q.BrandId, new SelectList(ViewBag.Brand, "Value", "Text"), new {@class = "form-control form-control-line", @onchange = "FillCategory()" })
+                    @Html.ValidationMessageFor(m => m.BrandId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CategoryId, new { @class = "col-md-12" })
+                <div class="col-md-12">
+
+                    @Html.DropDownListFor(q => q.CategoryId, new SelectList(ViewBag.Category, "Value", "Text"), new { @class = "form-control form-control-line",@id="ddlCategory" })
+                    @Html.ValidationMessageFor(m => m.CategoryId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Model, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Model, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Model)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Description)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.HiddenFor(m => m.Id)
+                    <input type="submit" class="btn btn-success" value="Save" name="Product" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@*<div class="card">
+    <div class="card-block">
+        <div class="table-responsive">
+            <table class="table" id="ProductTable">
+                <thead>
+                    <tr>
+
+                        <th>Name</th>
+                        <th>Brand</th>
+                        <th>Category</th>
+                        <th>Model</th>
+                        <th></th>
+                    </tr>
+
+                <tbody>
+                    @foreach (var product in products)
+                    {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>@product.BrandId</td>
+                            <td>@product.CategoryId</td>
+                            <td>@product.Model</td>
+                            <td>
+                                <button onclick="LoadBrandInfo('@product.Id');" class="btn btn-sm btn-default">Edit</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>*@
+
+@section scripts{
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
+    <script>
+        @*function LoadBrandInfo(id) {
+            if (id != null) {
+                var json = { id: id };
+                $.ajax({
+                    url: '@Url.Action("GetBrandById", "Brand")',
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(json),
+                    success: function (result) {
+                        $('#Name').val(result.Name);
+                        $('#Id').val(result.Id);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    },
+                    complete: function () {
+
+                    }
+                });
+            }
+        }*@
+        function FillCategory() {
+           // debugger;
+            var categoryId = $('#BrandId').val();
+
+            $.ajax({
+                url: "/Product/FillCategory",
+                type: "POST",
+                data: JSON.stringify({ id: categoryId }),
+                dataType: "json",
+                //traditional: true,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    debugger;
+                    $("#ddlCategory").empty();
+
+                   // $("#ddlCategory").append("<option value='" + data.Id + "'>" + data.Name + "</option>");
+
+                    $("#ddlCategory").append("<option value=''>Select....</option>");
+                    $.each(data, function (index, item) {
+                        $("#ddlCategory").append("<option value='" + item.Id + "'>" + item.Name + "</option>");
+                    });
+                    //$.each(data, function (index, data) {
+                    //    $("#ddlCategory").append("<option value='" + data.Id + "'>" + data.Name + "</option>");
+                    //});
+
+
+
+                    //if (data.status === "Success") {
+                    //    alert("Done");
+                        
+                    //} else {
+                    //    alert("Error occurs on the Database level!");
+                    //}
+                },
+                error: function () {
+                    alert("An error has occured!!!");
+                }
+            });
+            @*alert(categoryId);
+            $.ajax({
+                url: '@Url.Action("FillCategory", "Product")',
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: { id: categoryId },
+                success: function (categories) {
+                    $("#CategoryId").html(""); // clear before appending new list 
+                    $.each(categories, function (i, category) {
+                        $("#CategoryId").append(
+                            $('<option></option>').val(category.id).html(category.Name));
+                    });
+                }
+            });*@
+        }
+        $(document).ready(function() {
+            $('#ProductTable').DataTable();
+        });
+    </script>
+}

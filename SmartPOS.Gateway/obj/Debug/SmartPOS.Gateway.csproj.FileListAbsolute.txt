@@ -1,0 +1,14 @@
+E:\Asp.Net\SmartPOS\SmartPOS.Gateway\bin\Debug\SmartPOS.Gateway.dll
+E:\Asp.Net\SmartPOS\SmartPOS.Gateway\bin\Debug\SmartPOS.Gateway.pdb
+E:\Asp.Net\SmartPOS\SmartPOS.Gateway\bin\Debug\SmartPOS.Entity.dll
+E:\Asp.Net\SmartPOS\SmartPOS.Gateway\bin\Debug\SmartPOS.Entity.pdb
+E:\Asp.Net\SmartPOS\SmartPOS.Gateway\obj\Debug\SmartPOS.Gateway.csprojResolveAssemblyReference.cache
+E:\Asp.Net\SmartPOS\SmartPOS.Gateway\obj\Debug\SmartPOS.Gateway.dll
+E:\Asp.Net\SmartPOS\SmartPOS.Gateway\obj\Debug\SmartPOS.Gateway.pdb
+E:\Asp.Net\SmartPOS\SmartPOS\SmartPOS.Gateway\bin\Debug\SmartPOS.Gateway.dll
+E:\Asp.Net\SmartPOS\SmartPOS\SmartPOS.Gateway\bin\Debug\SmartPOS.Gateway.pdb
+E:\Asp.Net\SmartPOS\SmartPOS\SmartPOS.Gateway\bin\Debug\SmartPOS.Entity.dll
+E:\Asp.Net\SmartPOS\SmartPOS\SmartPOS.Gateway\bin\Debug\SmartPOS.Entity.pdb
+E:\Asp.Net\SmartPOS\SmartPOS\SmartPOS.Gateway\obj\Debug\SmartPOS.Gateway.csprojResolveAssemblyReference.cache
+E:\Asp.Net\SmartPOS\SmartPOS\SmartPOS.Gateway\obj\Debug\SmartPOS.Gateway.dll
+E:\Asp.Net\SmartPOS\SmartPOS\SmartPOS.Gateway\obj\Debug\SmartPOS.Gateway.pdb
