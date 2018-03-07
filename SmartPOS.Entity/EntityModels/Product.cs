@@ -9,10 +9,10 @@ namespace SmartPOS.Entity.EntityModels
    public class Product
     {
         public int Id { get; set; }
-        public int MaterialTypeId { get; set; }
-        public int BrandId { get; set; }
-        public int CategoryId { get; set; }
-        public string Model { get; set; }
+        public string MaterialTypeId { get; set; }
+        public string BrandId { get; set; }
+        public string CategoryId { get; set; }
+        public string Code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
      //   public Byte Image { get; set; }

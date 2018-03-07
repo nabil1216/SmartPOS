@@ -54,7 +54,7 @@ namespace SmartPOS.Gateway
         {
             try
             {
-                Query = "Insert into tbl_Brand (MaterialTypeId,BrandId,CategoryId,ModelNo,Name,Description,Image,CreateDate) values ('" + product.MaterialTypeId + "','" + product.BrandId + "','" + product.CategoryId + "','" + product.Model + "','" + product.Name + "','" + product.Description + "',GETDATE()) ";
+                Query = "Insert into tbl_Product (MaterialTypeId,BrandId,CategoryId,ModelNo,ProductName,Description,CreateDate) values ('" + product.MaterialTypeId + "','" + product.BrandId + "','" + product.CategoryId + "','" + product.Code + "','" + product.Name + "','" + product.Description + "',GETDATE()) ";
                 Command.CommandText = Query;
                 Connection.Open();
                 int rowAfftected = Command.ExecuteNonQuery();
@@ -73,14 +73,14 @@ namespace SmartPOS.Gateway
         {
             try
             {
-                Query = "UPDATE tbl_Product SET MaterialTypeId=@MaterialTypeId,BrandId=@BrandId,CategoryId=@CategoryId,ModelNo=@ModelNo, Name=@Name,Description=@Description,Image=@Image, UpdateDate=GetDate() WHERE ProductId=@Id";
+                Query = "UPDATE tbl_Product SET MaterialTypeId=@MaterialTypeId,BrandId=@BrandId,CategoryId=@CategoryId,ModelNo=@ModelNo, ProductName=@ProductName,Description=@Description,Image=@Image, UpdateDate=GetDate() WHERE ProductId=@Id";
                 Command.CommandText = Query;
                 Command.Parameters.Clear();
-                Command.Parameters.AddWithValue("Name", product.Name);
+                Command.Parameters.AddWithValue("ProductName", product.Name);
                 Command.Parameters.AddWithValue("MaterialTypeId", product.MaterialTypeId);
                 Command.Parameters.AddWithValue("BrandId", product.BrandId);
                 Command.Parameters.AddWithValue("CategoryId", product.CategoryId);
-                Command.Parameters.AddWithValue("ModelNo", product.Model);
+                Command.Parameters.AddWithValue("ModelNo", product.Code);
                 Command.Parameters.AddWithValue("Description", product.Description);
              //   Command.Parameters.AddWithValue("Image", product.Image);
 
@@ -102,7 +102,10 @@ namespace SmartPOS.Gateway
         {
             try
             {
-                Query = "Select * from tbl_Product";
+                Query = @"Select ProductId,m.Name,b.Name,c.CategoryName,p.ModelNo,p.ProductName from tbl_Product p
+                left outer join tbl_MaterialType m on p.MaterialTypeId = m.MaterialTypeId
+                left outer join tbl_Brand b on p.BrandId = b.BrandId
+                left outer join tbl_Category c on p.CategoryId = c.CategoryId";
                 Connection.Open();
                 Command.CommandText = Query;
                 Reader = Command.ExecuteReader();
@@ -113,13 +116,13 @@ namespace SmartPOS.Gateway
                     Product Product = new Product()
                     {
                         Id = (int)Reader["ProductId"],
-                        MaterialTypeId = (int)Reader["MaterialTypeId"],
-                        BrandId = (int)Reader["BrandId"],
-                        CategoryId = (int)Reader["CategoryId"],
-                        Model = Reader["ModelNo"].ToString(),
-                        Description = Reader["Description"].ToString(),
+                        MaterialTypeId = Reader["Name"].ToString(),
+                        BrandId = Reader["Name"].ToString(),
+                        CategoryId = Reader["CategoryName"].ToString(),
+                        Code = Reader["ModelNo"].ToString(),
+                       // Description = Reader["Description"].ToString(),
                        // Image = (Byte)Reader["Image"],
-                        Name = Reader["Name"].ToString()
+                        Name = Reader["ProductName"].ToString()
 
                     };
 
