@@ -48,7 +48,8 @@ namespace SmartPOS.App.Controllers
             ViewBag.MaterialType = GetItemForMaterailTypeDropdownList();
             ViewBag.Brand = GetItemForBrandDropdownList();
             ViewBag.Category = GetItemForCategoryDropdownList();
-
+            List<Product> products = productManager.GetAllProduct();
+            ViewBag.Product = products;
             return View(model);
         }
         private List<SelectListItem> GetItemForBrandDropdownList()
@@ -123,5 +124,12 @@ namespace SmartPOS.App.Controllers
           // Category category = productManager.FillCategory(id);
             return Json(category, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetProductById(int id)
+        {
+            Product product = productManager.GetById(id);
+            return Json(product, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

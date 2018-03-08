@@ -16,6 +16,7 @@ namespace SmartPOS.App.Models
         public string BrandId { get; set; }
         [DisplayName("Category")]
         public string CategoryId { get; set; }
+        [DisplayName("Model No")]
         public string Code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

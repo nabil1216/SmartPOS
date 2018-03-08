@@ -47,6 +47,7 @@
     <Compile Include="CommonManager.cs" />
     <Compile Include="CountryManager.cs" />
     <Compile Include="CurrencyManager.cs" />
+    <Compile Include="EmployeeManager.cs" />
     <Compile Include="HeadOfficeManager.cs" />
     <Compile Include="MaterialTypeManager.cs" />
     <Compile Include="ProductManager.cs" />

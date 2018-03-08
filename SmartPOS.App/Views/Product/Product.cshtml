@@ -96,7 +96,7 @@
                             <td>@product.CategoryId</td>
                             <td>@product.Code</td>
                             <td>
-                                <button onclick="LoadBrandInfo('@product.Id');" class="btn btn-sm btn-default">Edit</button>
+                                <button onclick="LoadProductInfo('@product.Id');" class="btn btn-sm btn-default">Edit</button>
                             </td>
                         </tr>
                     }
@@ -112,18 +112,18 @@
     <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
 
     <script>
-        @*function LoadBrandInfo(id) {
+        function LoadProductInfo(id) {
             if (id != null) {
                 var json = { id: id };
                 $.ajax({
-                    url: '@Url.Action("GetBrandById", "Brand")',
+                    url: '@Url.Action("GetProductById", "Product")',
                     dataType: "json",
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(json),
                     success: function (result) {
-                        $('#Name').val(result.Name);
-                        $('#Id').val(result.Id);
+                        $('#ProductName').val(result.Name);
+                        $('#ProductId').val(result.Id);
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
 
@@ -133,7 +133,7 @@
                     }
                 });
             }
-        }*@
+        }
         function FillCategory() {
            // debugger;
             var categoryId = $('#BrandId').val();

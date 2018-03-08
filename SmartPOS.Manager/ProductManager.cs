@@ -42,5 +42,10 @@ namespace SmartPOS.Manager
         {
             return productGateway.GetAllProduct();
         }
+
+        public Product GetById(int id)
+        {
+            return productGateway.GetById(id);
+        }
     }
 }

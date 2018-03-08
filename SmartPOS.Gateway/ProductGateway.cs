@@ -141,6 +141,47 @@ namespace SmartPOS.Gateway
                 }
             }
         }
+
+
+        public Product GetById(int id)
+        {
+            try
+            {
+                Query = "SELECT * from tbl_Product WHERE ProductId = @Id";
+                Command.CommandText = Query;
+                Command.Parameters.Clear();
+                Command.Parameters.AddWithValue("Id", id);
+                Connection.Open();
+                Reader = Command.ExecuteReader();
+                Product product = null;
+                if (Reader.HasRows)
+                {
+                    Reader.Read();
+                    product = new Product()
+                    {
+                        Id = (int)Reader["ProductId"],
+                        BrandId = Reader["BrandId"].ToString(),
+                        Name = Reader["ProductName"].ToString(),
+                        CategoryId = Reader["CategoryId"].ToString(),
+                        Code = Reader["ModelNo"].ToString(),
+                        Description = Reader["Description"].ToString(),
+                        MaterialTypeId = Reader["MaterialTypeId"].ToString()
+
+                        
+                    };
+                }
+                Reader.Close();
+                return product;
+            }
+            finally
+            {
+                if (Connection != null && Connection.State != ConnectionState.Closed)
+                {
+                    Connection.Close();
+                }
+            }
+        }
+
     }
-    
+
 }

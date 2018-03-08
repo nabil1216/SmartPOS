@@ -50,6 +50,7 @@
     <Compile Include="ConnectionGateway.cs" />
     <Compile Include="CountryGateway.cs" />
     <Compile Include="CurrencyGateWay.cs" />
+    <Compile Include="EmployeeGateway.cs" />
     <Compile Include="HeadOfficeGateway.cs" />
     <Compile Include="MaterialTypeGateway.cs" />
     <Compile Include="ProductGateway.cs" />
