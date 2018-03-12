@@ -187,6 +187,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BankController.cs" />
+    <Compile Include="Controllers\BarcodeController.cs" />
     <Compile Include="Controllers\BranchOfficeController.cs" />
     <Compile Include="Controllers\BrandController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
@@ -1246,6 +1247,7 @@
     <Content Include="Views\Product\Product.cshtml" />
     <Content Include="Views\Store\Store.cshtml" />
     <Content Include="Views\Employee\Employee.cshtml" />
+    <Content Include="Views\Barcode\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

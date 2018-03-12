@@ -20,7 +20,6 @@ namespace SmartPOS.App.Controllers
             List<Common> brands = commonManager.GetAllBrand();
             ViewBag.Brand = brands;
             return View();
-
         }
 
         [HttpPost]

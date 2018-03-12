@@ -24,6 +24,9 @@ namespace SmartPOS.App
             {
                 conf.CreateMap<CountryVm, Country>();
                 conf.CreateMap<Country, CountryVm>();
+
+                conf.CreateMap<ProductVm, Product>();
+                conf.CreateMap<Product, ProductVm>();
             });
         }
     }

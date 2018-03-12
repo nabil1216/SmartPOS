@@ -54,11 +54,11 @@ namespace SmartPOS.Gateway
         {
             try
             {
-                Query = "Insert into tbl_Product (MaterialTypeId,BrandId,CategoryId,ModelNo,ProductName,Description,CreateDate) values ('" + product.MaterialTypeId + "','" + product.BrandId + "','" + product.CategoryId + "','" + product.Code + "','" + product.Name + "','" + product.Description + "',GETDATE()) ";
+                Query = "Insert into tbl_Product (MaterialTypeId,BrandId,CategoryId,ModelNo,ProductName,Description,CreateDate) values ('" + product.MaterialTypeId + "','" + product.BrandId + "','" + product.CategoryId + "','" + product.Code + "','" + product.Name + "','" + product.Description + "',GETDATE()); SELECT SCOPE_IDENTITY() ";
                 Command.CommandText = Query;
                 Connection.Open();
-                int rowAfftected = Command.ExecuteNonQuery();
-                return rowAfftected;
+                var id = Command.ExecuteScalar();
+                return Convert.ToInt32(id);
             }
             finally
             {
@@ -182,6 +182,28 @@ namespace SmartPOS.Gateway
             }
         }
 
+        public int UpdateBarcode(Product product)
+        {
+            try
+            {
+                Query = "UPDATE tbl_Product SET Barcode=@Barcode WHERE ProductId=@ProductId";
+                Command.CommandText = Query;
+                Command.Parameters.Clear();
+                Command.Parameters.Add("Barcode", SqlDbType.VarBinary);
+                Command.Parameters["Barcode"].Value = product.Barcode;
+                Command.Parameters.Add("ProductId", SqlDbType.Int);
+                Command.Parameters["ProductId"].Value = product.Id;
+                Connection.Open();
+                int rowAffected = Command.ExecuteNonQuery();
+                return rowAffected;
+            }
+            finally
+            {
+                if (Connection != null && Connection.State != ConnectionState.Closed)
+                {
+                    Connection.Close();
+                }
+            }
+        }
     }
-
 }

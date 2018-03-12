@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -131,5 +134,36 @@ namespace SmartPOS.App.Controllers
             return Json(product, JsonRequestBehavior.AllowGet);
         }
 
+        private Bitmap GenerateBarcode(int productId)
+        {
+            string barcode = productId.ToString("0000000000");
+            using (MemoryStream ms = new MemoryStream())
+            {
+                //The Image is drawn based on length of Barcode text.
+                using (Bitmap bitMap = new Bitmap(barcode.Length * 40, 80))
+                {
+                    //The Graphics library object is generated for the Image.
+                    using (Graphics graphics = Graphics.FromImage(bitMap))
+                    {
+                        //The installed Barcode font.
+                        Font oFont = new Font("IDAutomationHC39M", 16);
+                        PointF point = new PointF(2f, 2f);
+
+                        //White Brush is used to fill the Image with white color.
+                        SolidBrush whiteBrush = new SolidBrush(Color.White);
+                        graphics.FillRectangle(whiteBrush, 0, 0, bitMap.Width, bitMap.Height);
+
+                        //Black Brush is used to draw the Barcode over the Image.
+                        SolidBrush blackBrush = new SolidBrush(Color.Black);
+                        graphics.DrawString("*" + barcode + "*", oFont, blackBrush, point);
+                    }
+
+                    //The Bitmap is saved to Memory Stream.
+                    //bitMap.Save(ms, ImageFormat.Png);
+                    //bitMap.Save(@"E:\test\123.png");
+                    return bitMap;
+                }
+            }
+        }
     }
 }
