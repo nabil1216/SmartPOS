@@ -19,6 +19,14 @@ namespace SmartPOS.Manager
         {
             return commonGateway.GetAllBrand();
         }
+        public List<Common> GetAllUnit()
+        {
+            return commonGateway.GetAllUnit();
+        }
+        public List<Common> GetAllProduct(string prefix )
+        {
+            return commonGateway.GetAllProduct(prefix);
+        }
 
         //public List<Common> GetAllVat()
         //{

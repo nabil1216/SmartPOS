@@ -83,6 +83,78 @@ namespace SmartPOS.Gateway
             }
         }
 
+        public List<Common> GetAllUnit()
+        {
+            try
+            {
+                Query = "Select * from tbl_Unit";
+                Connection.Open();
+                Command.CommandText = Query;
+                Reader = Command.ExecuteReader();
+
+                List<Common> commons = new List<Common>();
+                while (Reader.Read())
+                {
+                    Common Common = new Common()
+                    {
+                        Id = (int)Reader["UnitId"],
+                        Name = Reader["UnitName"].ToString()
+
+                    };
+
+                    commons.Add(Common);
+
+                }
+
+                Reader.Close();
+                return commons;
+            }
+            finally
+            {
+                if (Connection != null && Connection.State != ConnectionState.Closed)
+                {
+                    Connection.Close();
+                }
+            }
+        }
+
+        public List<Common> GetAllProduct(string prefix)
+        {
+            try
+            {
+                Query = "Select * from tbl_Product where ModelNo like '%'+@prefix+'%'";
+                Command.CommandText = Query;
+                Command.Parameters.Clear();
+                Command.Parameters.AddWithValue("@prefix", prefix);
+                Connection.Open();
+                Command.CommandText = Query;
+                Reader = Command.ExecuteReader();
+
+                List<Common> commons = new List<Common>();
+                while (Reader.Read())
+                {
+                    Common Common = new Common()
+                    {
+                        Id = (int)Reader["ProductId"],
+                        Name = Reader["ModelNo"].ToString()
+
+                    };
+
+                    commons.Add(Common);
+
+                }
+
+                Reader.Close();
+                return commons;
+            }
+            finally
+            {
+                if (Connection != null && Connection.State != ConnectionState.Closed)
+                {
+                    Connection.Close();
+                }
+            }
+        }
 
         //public List<Common> GetAllVat()
         //{

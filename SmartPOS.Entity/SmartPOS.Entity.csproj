@@ -54,6 +54,7 @@
     <Compile Include="EntityModels\Product.cs" />
     <Compile Include="EntityModels\Store.cs" />
     <Compile Include="EntityModels\Supplier.cs" />
+    <Compile Include="EntityModels\Unit.cs" />
     <Compile Include="EntityModels\Vat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

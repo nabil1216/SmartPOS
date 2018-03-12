@@ -27,6 +27,9 @@ namespace SmartPOS.App
 
                 conf.CreateMap<ProductVm, Product>();
                 conf.CreateMap<Product, ProductVm>();
+
+                conf.CreateMap<UnitVm, Unit>();
+                conf.CreateMap<Unit, UnitVm>();
             });
         }
     }
