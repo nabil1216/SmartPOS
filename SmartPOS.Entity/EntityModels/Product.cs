@@ -19,7 +19,7 @@ namespace SmartPOS.Entity.EntityModels
      //   public Byte Image { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
-
+        public string Price { get; set; }
         public byte[] Barcode { get; set; }
     }
 }

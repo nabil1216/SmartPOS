@@ -54,11 +54,23 @@ namespace SmartPOS.Gateway
         {
             try
             {
-                Query = "Insert into tbl_Product (MaterialTypeId,BrandId,CategoryId,ModelNo,ProductName,Description,CreateDate) values ('" + product.MaterialTypeId + "','" + product.BrandId + "','" + product.CategoryId + "','" + product.Code + "','" + product.Name + "','" + product.Description + "',GETDATE()); SELECT SCOPE_IDENTITY() ";
+                Query = "select count(*)from tbl_Product where ModelNo=@ModelNo";
                 Command.CommandText = Query;
+                Command.Parameters.AddWithValue("ModelNo", product.Code);
+                Connection.Open();
+                int count = (int) Command.ExecuteScalar();
+                Connection.Close();
+                if (count==0)
+                {
+                    Query = "Insert into tbl_Product (MaterialTypeId,BrandId,CategoryId,ModelNo,ProductName,Description,Price,CreateDate) values ('" + product.MaterialTypeId + "','" + product.BrandId + "','" + product.CategoryId + "','" + product.Code + "','" + product.Name + "','" + product.Description + "','" + product.Price + "',GETDATE()); SELECT SCOPE_IDENTITY() ";
+                    Command.CommandText = Query;
+                   
+                }
                 Connection.Open();
                 var id = Command.ExecuteScalar();
                 return Convert.ToInt32(id);
+
+
             }
             finally
             {
@@ -73,7 +85,7 @@ namespace SmartPOS.Gateway
         {
             try
             {
-                Query = "UPDATE tbl_Product SET MaterialTypeId=@MaterialTypeId,BrandId=@BrandId,CategoryId=@CategoryId,ModelNo=@ModelNo, ProductName=@ProductName,Description=@Description,Image=@Image, UpdateDate=GetDate() WHERE ProductId=@Id";
+                Query = "UPDATE tbl_Product SET MaterialTypeId=@MaterialTypeId,BrandId=@BrandId,CategoryId=@CategoryId,ModelNo=@ModelNo, ProductName=@ProductName,Description=@Description,Image=@Image,Price=@Price, UpdateDate=GetDate() WHERE ProductId=@Id";
                 Command.CommandText = Query;
                 Command.Parameters.Clear();
                 Command.Parameters.AddWithValue("ProductName", product.Name);
@@ -82,7 +94,8 @@ namespace SmartPOS.Gateway
                 Command.Parameters.AddWithValue("CategoryId", product.CategoryId);
                 Command.Parameters.AddWithValue("ModelNo", product.Code);
                 Command.Parameters.AddWithValue("Description", product.Description);
-             //   Command.Parameters.AddWithValue("Image", product.Image);
+                //   Command.Parameters.AddWithValue("Image", product.Image);
+                Command.Parameters.AddWithValue("Price", product.Price);
 
                 Command.Parameters.AddWithValue("ProductId", product.Id);
                 Connection.Open();
@@ -102,7 +115,7 @@ namespace SmartPOS.Gateway
         {
             try
             {
-                Query = @"Select ProductId,m.Name,b.Name,c.CategoryName,p.ModelNo,p.ProductName from tbl_Product p
+                Query = @"Select ProductId,m.Name,b.Name,c.CategoryName,p.ModelNo,p.ProductName,p.Price from tbl_Product p
                 left outer join tbl_MaterialType m on p.MaterialTypeId = m.MaterialTypeId
                 left outer join tbl_Brand b on p.BrandId = b.BrandId
                 left outer join tbl_Category c on p.CategoryId = c.CategoryId";
@@ -122,8 +135,8 @@ namespace SmartPOS.Gateway
                         Code = Reader["ModelNo"].ToString(),
                        // Description = Reader["Description"].ToString(),
                        // Image = (Byte)Reader["Image"],
-                        Name = Reader["ProductName"].ToString()
-
+                        Name = Reader["ProductName"].ToString(),
+                        Price = Reader["Price"].ToString()
                     };
 
                     products.Add(Product);
@@ -165,8 +178,9 @@ namespace SmartPOS.Gateway
                         CategoryId = Reader["CategoryId"].ToString(),
                         Code = Reader["ModelNo"].ToString(),
                         Description = Reader["Description"].ToString(),
-                        MaterialTypeId = Reader["MaterialTypeId"].ToString()
-
+                        MaterialTypeId = Reader["MaterialTypeId"].ToString(),
+                        Price = Reader["Price"].ToString()
+                        
                         
                     };
                 }

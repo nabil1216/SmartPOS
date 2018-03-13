@@ -20,8 +20,8 @@ namespace SmartPOS.App.Models
         public string Code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-      //  public byte[] Image { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime UpdateDate { get; set; }
+        [RegularExpression(@"^\$?\d+(\.(\d{2}))?$",ErrorMessage = "Enter only Number")]
+        public string Price { get; set; }
+      
     }
 }

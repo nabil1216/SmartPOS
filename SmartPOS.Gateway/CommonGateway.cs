@@ -136,7 +136,8 @@ namespace SmartPOS.Gateway
                     Common Common = new Common()
                     {
                         Id = (int)Reader["ProductId"],
-                        Name = Reader["ModelNo"].ToString()
+                        Name = Reader["ModelNo"].ToString(),
+                        ProductName = Reader["ProductName"].ToString()
 
                     };
 

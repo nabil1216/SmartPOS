@@ -25,13 +25,13 @@
                     @Html.ValidationMessageFor(m => m.ModelNo)
                 </div>
             </div>
-            @*<div class="form-group">
-                @Html.LabelFor(m => m.Sign, new { @class = "col-md-12" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.ProductName, new { @class = "col-md-12" })
                 <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.Sign, new { @class = "form-control form-control-line" })
-                    @Html.ValidationMessageFor(m => m.Sign)
+                    @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.ProductName)
                 </div>
-            </div>*@
+            </div>
             <div class="form-group">
                 <div class="col-md-12">
                     @Html.HiddenFor(m => m.Id)
@@ -84,9 +84,15 @@
                         type: "POST",
                         dataType: "json",
                         data: { Prefix: request.term },
-                        success: function(data) {
+
+
+
+                        success: function (data) {
+                         //$('#ProductName').val(result.ProductName);
+
                             response($.map(data,
-                                function(item) {
+                                function (item) {
+                                    $('#ProductName').val(item.ProductName);
                                     return { label: item.Name, value: item.Name };
                                 }));
 
@@ -101,6 +107,18 @@
                 }
             });
         });
+
+        //$('#ModelNo').autocomplete({
+        //    source: "/PurchaseOrder/FillCategory/",
+        //    minLength: 3,
+        //    select: function (event, ui) {
+        //        debugger;
+        //        $('#ProductName').val(ui.item.Mobile);
+        //        $('#Buyer').val(ui.item.Code);
+        //        $('#BuyerGroupId').val(ui.item.BuyerGroupId);
+        //        $('#BuyerAddress').val(ui.item.Address);
+        //    }
+        //});
 
     </script>
 }

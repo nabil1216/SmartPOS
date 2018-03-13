@@ -56,6 +56,14 @@
                 </div>
             </div>
             <div class="form-group">
+                @Html.LabelFor(m => m.Price, new { @class = "col-md-12" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Price, new { @class = "form-control form-control-line" })
+                    @Html.ValidationMessageFor(m => m.Price)
+                </div>
+            </div>
+
+            <div class="form-group">
                 @Html.LabelFor(m => m.Description, new { @class = "col-md-12" })
                 <div class="col-md-12">
                     @Html.TextBoxFor(m => m.Description, new { @class = "form-control form-control-line" })
@@ -124,6 +132,8 @@
                     success: function (result) {
                         $('#ProductName').val(result.Name);
                         $('#ProductId').val(result.Id);
+                        $('#Price').val(result.Price);
+
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
 

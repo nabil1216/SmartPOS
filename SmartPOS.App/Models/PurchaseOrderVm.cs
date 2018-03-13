@@ -9,5 +9,6 @@ namespace SmartPOS.App.Models
     {
         public int Id { get; set; }
         public string ModelNo { get; set; }
+        public string ProductName { get; set; }
     }
 }
