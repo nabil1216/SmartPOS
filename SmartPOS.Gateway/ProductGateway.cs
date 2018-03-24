@@ -160,7 +160,7 @@ namespace SmartPOS.Gateway
         {
             try
             {
-                Query = "SELECT * from tbl_Product WHERE ProductId = @Id";
+                Query = "SELECT p.ProductId, p.ProductName,p.ModelNo,p.Price,b.BrandId,c.CategoryId from tbl_Product p left outer join tbl_Brand b on b.BrandId = p.BrandId  left outer join tbl_Category c on c.CategoryId = p.CategoryId WHERE p.ProductId = @Id";
                 Command.CommandText = Query;
                 Command.Parameters.Clear();
                 Command.Parameters.AddWithValue("Id", id);
@@ -177,8 +177,8 @@ namespace SmartPOS.Gateway
                         Name = Reader["ProductName"].ToString(),
                         CategoryId = Reader["CategoryId"].ToString(),
                         Code = Reader["ModelNo"].ToString(),
-                        Description = Reader["Description"].ToString(),
-                        MaterialTypeId = Reader["MaterialTypeId"].ToString(),
+                      //  Description = Reader["Description"].ToString(),
+                       // MaterialTypeId = Reader["MaterialTypeId"].ToString(),
                         Price = Reader["Price"].ToString()
                         
                         

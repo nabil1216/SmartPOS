@@ -137,7 +137,8 @@ namespace SmartPOS.Gateway
                     {
                         Id = (int)Reader["ProductId"],
                         Name = Reader["ModelNo"].ToString(),
-                        ProductName = Reader["ProductName"].ToString()
+                        ProductName = Reader["ProductName"].ToString(),
+                        Price = Reader["Price"].ToString()
 
                     };
 

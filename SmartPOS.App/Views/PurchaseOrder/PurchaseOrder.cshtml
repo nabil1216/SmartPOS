@@ -12,30 +12,55 @@
 <h2>Purchase Order</h2>
 <div class="card">
     <div class="card-block">
-        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal form-material" }))
+        @using (Html.BeginForm(null, null, FormMethod.Post, new {@class = "form-horizontal form-material"}))
         {
             @Html.AntiForgeryToken()
             @*<h4>Enter Currency Info</h4>*@
-            <hr />
+            <hr/>
             @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+
             <div class="form-group">
-                @Html.LabelFor(m => m.ModelNo, new { @class = "col-md-12" })
+                @Html.LabelFor(m => m.OrderDate, new {@class = "col-md-12"})
                 <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.ModelNo, new { @class = "form-control form-control-line" })
+                    @Html.TextBoxFor(m => m.OrderDate, new {@class = "form-control form-control-line"})
+                    @Html.ValidationMessageFor(m => m.OrderDate)
+                </div>           
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.ModelNo, new {@class = "col-md-12"})
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.ModelNo, new {@class = "form-control form-control-line"})
                     @Html.ValidationMessageFor(m => m.ModelNo)
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.ProductName, new { @class = "col-md-12" })
+                @Html.LabelFor(m => m.ProductName, new {@class = "col-md-12"})
                 <div class="col-md-12">
-                    @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control form-control-line" })
+                    @Html.TextBoxFor(m => m.ProductName, new {@class = "form-control form-control-line"})
                     @Html.ValidationMessageFor(m => m.ProductName)
+                </div>           
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(m => m.Price, new {@class = "col-md-12"})
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Price, new {@class = "form-control form-control-line"})
+                    @Html.ValidationMessageFor(m => m.Price)
                 </div>
             </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <input type="submit" class="btn btn-success" value="Add" name="PurchaseADD"/>
+                </div>
+            </div>
+
+
             <div class="form-group">
                 <div class="col-md-12">
                     @Html.HiddenFor(m => m.Id)
-                    <input type="submit" class="btn btn-success" value="Save" name="Currency" />
+                    <input type="submit" class="btn btn-success" value="Save" name="Currency"/>
                 </div>
             </div>
         }
@@ -76,6 +101,18 @@
             $('#CurrencyTable').DataTable();
         });
 
+
+        $(document).ready(function () {
+            $("#OrderDate").datepicker({
+                dateFormat: "dd-mm-yy", //"MM dd, yy"   "dd-mm-yy",    "DD, dd MM, yy"
+                //showAnim: "fold", //bounce , fold, slideDown
+                //minDate: "-30Y",
+                //maxDate: "-1", //  + -   M for month
+                changeMonth: true,
+                changeYear: true,
+            });
+        });
+
         $(document).ready(function() {
             $("#ModelNo").autocomplete({
                 source: function(request, response) {
@@ -93,6 +130,8 @@
                             response($.map(data,
                                 function (item) {
                                     $('#ProductName').val(item.ProductName);
+                                    $('#Price').val(item.Price);
+
                                     return { label: item.Name, value: item.Name };
                                 }));
 
@@ -108,17 +147,7 @@
             });
         });
 
-        //$('#ModelNo').autocomplete({
-        //    source: "/PurchaseOrder/FillCategory/",
-        //    minLength: 3,
-        //    select: function (event, ui) {
-        //        debugger;
-        //        $('#ProductName').val(ui.item.Mobile);
-        //        $('#Buyer').val(ui.item.Code);
-        //        $('#BuyerGroupId').val(ui.item.BuyerGroupId);
-        //        $('#BuyerAddress').val(ui.item.Address);
-        //    }
-        //});
+    
 
     </script>
 }

@@ -130,9 +130,12 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(json),
                     success: function (result) {
-                        $('#ProductName').val(result.Name);
+                        $('#ProductName').val(result.ProductName);
                         $('#ProductId').val(result.Id);
                         $('#Price').val(result.Price);
+                        $('#BrandId').val(result.BrandId);
+                        $('#Category').val(result.CategoryId);
+
 
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
